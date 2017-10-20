@@ -8,7 +8,6 @@ def remove_punct(text):
     marks from a string. Spaces do not count as punctuation and should
     not be removed. The funcion takes a string and returns a new string
     which does not contain any puctuation. For example:
-
     >>> remove_punct("Hello, World!")
     'Hello World'
     >>> remove_punct("-- ...Hey! -- Yes?!...")
@@ -25,7 +24,6 @@ def remove_spaces(text):
     """This function is used to remove leading and trailing spaces from a string.
     It takes a string and returns a new string with does not have leading and
     trailing spaces. For example:
-
     >>> remove_spaces("  Hello!  ")
     'Hello!'
     >>> remove_spaces("  Python  is  easy!   ")
@@ -46,7 +44,6 @@ def normalise_input(user_input):
     """This function removes all punctuation, leading and trailing
     spaces from a string, and converts the string to lower case.
     For example:
-
     >>> normalise_input("  Go south! ")
     'go south'
     >>> normalise_input("!!! tAkE,. LAmp!?! ")
@@ -70,7 +67,6 @@ def display_room(room):
     "description" etc. (see map.py for the definition). The name of the room
     is printed in all capitals and framed by blank lines. Then follows the
     description of the room and a blank line again. For example:
-
     >>> display_room(rooms["Office"])
     <BLANKLINE>
     THE GENERAL OFFICE
@@ -81,7 +77,6 @@ def display_room(room):
     in their eyes. If you go west you can return to the
     Queen's Buildings.
     <BLANKLINE>
-
     Note: <BLANKLINE> here means that doctest should expect a blank line.
     """
     name = room["name"]
@@ -95,7 +90,6 @@ def exit_leads_to(exits, direction):
     """This function takes a dictionary of exits and a direction (a particular
     exit taken from this dictionary). It returns the name of the room into which
     this exit leads. For example:
-
     >>> exit_leads_to(rooms["Reception"]["exits"], "south")
     "MJ and Simon's room"
     >>> exit_leads_to(rooms["Reception"]["exits"], "east")
@@ -114,9 +108,7 @@ def print_menu_line(direction, leads_to):
     """This function prints a line of a menu of exits. It takes two strings: a
     direction (the name of an exit) and the name of the room into which it
     leads (leads_to), and should print a menu line in the following format:
-
     Go <EXIT NAME UPPERCASE> to <where it leads>.
-
     For example:
     >>> print_menu_line("east", "you personal tutor's office")
     Go EAST to you personal tutor's office.
@@ -134,9 +126,7 @@ def print_menu(exits):
     menu should, for each exit, call the function print_menu_line() to print
     the information about each exit in the appropriate format. The room into
     which an exit leads is obtained using the function exit_leads_to().
-
     For example, the menu of exits from Reception may look like this:
-
     You can:
     Go EAST to your personal tutor's office.
     Go WEST to the parking lot.
@@ -161,7 +151,6 @@ def is_valid_exit(exits, user_input):
     It returns True if the exit is valid, and False otherwise. Assume that
     the name of the exit has been normalised by the function normalise_input().
     For example:
-
     >>> is_valid_exit(rooms["Reception"]["exits"], "south")
     True
     >>> is_valid_exit(rooms["Reception"]["exits"], "up")
@@ -200,11 +189,11 @@ def menu(exits):
         choice = input("Where do you want to go?")
         
         normalised_choice = normalise_input(choice)
-        print(normalised_choice)
         checked_user_input = is_valid_exit(exits, normalised_choice)
 
         if checked_user_input == True:
-            current_room = rooms[move(exits, choice)]
+            room = move(exits, normalised_choice)
+            current_room = room
             display_room(current_room)
             exits = current_room["exits"]
         else:
@@ -223,7 +212,6 @@ def move(exits, direction):
     """This function returns the room into which the player will move if, from a
     dictionary "exits" of avaiable exits, they choose to move towards the exit
     with the name given by "direction". For example:
-
     >>> move(rooms["Reception"]["exits"], "south") == rooms["Admins"]
     True
     >>> move(rooms["Reception"]["exits"], "east") == rooms["Tutor"]
